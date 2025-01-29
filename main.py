@@ -1,4 +1,4 @@
-from PyGithub import Github
+from github import Github
 import os
 
 
