@@ -8,7 +8,7 @@ Based on [https://github.com/Maanuj-Vora/List-Contributors](https://github.com/M
 
 | Input Tag    | Required | Default Value | Example                             |
 | ------------ | -------- | ------------- | ----------------------------------- |
-| repo_name    | True     | N/A           | Nightblade/List-Contributors-Simple |
+| repo_name    | True     | N/A           | nightblade/list-contributors-simple |
 | filename     | True     | N/A           | contributors.txt                    |
 | access_token | True     | N/A           | ${{secrets.GITHUB_TOKEN}}           |
 
