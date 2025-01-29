@@ -22,10 +22,10 @@ jobs:
   get-contributors:
     runs-on: ubuntu-latest
     steps:
-      - uses: nightblade/get-contributors-list@main
+      - uses: nightblade/list-contributors-simple@main
         with:
-          repo_name: 'nightblade/list-contributors-simple'
-          filename: 'contributors.txt'
+          repo_name: "nightblade/list-contributors-simple"
+          filename: "contributors.txt"
           access_token: ${{secrets.GITHUB_TOKEN}}
       - run: |
         cat contributors.txt
