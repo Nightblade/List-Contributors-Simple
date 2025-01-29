@@ -1,63 +1,56 @@
-from github import Github
+from PyGithub import Github
 import os
-import base64
-import re
 
 
-def getInput(input_name):
-    return os.environ['INPUT_{}'.format(input_name)]
+def get_gh_input(input_name: str) -> str:
+    """Returns the value of a given GitHub Actions input variable.
+
+    Args:
+        input_name: The name of the input variable.
+
+    Returns:
+        The value of the input variable.
+    """
+    return os.environ[f"INPUT_{input_name}"]
 
 
-def formatContributors(repo, columnRow, width, font,
-                       headFormat, tailFormat):
-    USER, HEAD, TAIL, contributors = 0, headFormat, tailFormat, repo.get_contributors()
-    for contributor in contributors:
-        name, avatarURL, htmlURL = contributor.name, contributor.avatar_url, contributor.html_url
-        if name == None:
-            name = htmlURL[19:]
-        if USER >= columnRow:
-            USER = 0
-        HEAD += f'''<td align="center"><a href="{htmlURL}"><img src="{avatarURL}" width="{width}" alt="{name}"><br><sub style="font-size:{font}px"><b>{name}</b></sub></a></td>'''
-        USER += 1
-    return HEAD + TAIL
+def get_contributor_names(repo) -> list[str]:
+    """Retrieves a list of contributor names from a given GitHub repository.
+
+    If a contributor's name is not available, a placeholder "Unknown" is used instead.
+
+    Args:
+        repo: A PyGithub Repository object from which to retrieve contributor names.
+
+    Returns:
+        A list of strings representing the names of contributors.
+    """
+    contributor_names = []
+    for contributor in repo.get_contributors():
+        name = contributor.name or "Unknown"
+        contributor_names.append(name)
+
+    return contributor_names
 
 
-def writeRepo(repo, contributorList, htmlStart, htmlEnd, path, commitMessage, CONTRIB):
-    contents = repo.get_contents('{}'.format(path))
-    text_str = (base64.b64decode((contents.content).replace(
-        '\n', '')).decode('utf-8')).split(CONTRIB)
-    try:
-        if re.match(htmlStart, text_str[1]):
-            end = text_str[1].split(htmlEnd)
-            end[0] = end[0] + htmlEnd
-        else:
-            end = ['', '\n\n' + text_str[1]]
+repo_name, file_path, access_token = (
+    get_gh_input("REPO_NAME"),
+    get_gh_input("FILEPATH"),
+    get_gh_input("ACCESS_TOKEN"),
+)
 
-        if end[0] != contributorList:
-            end[0] = contributorList
-            text = text_str[0] + CONTRIB + end[0] + end[1]
-            repo.update_file(contents.path, commitMessage, text, contents.sha)
-        else:
-            pass
-    except IndexError:
-        raise Exception(path + "' does not have '" + CONTRIB)
-    except Exception as e:
-        raise Exception(e)
+github = Github(access_token)
 
+repo = github.get_repo(repo_name)
 
-accessToken, repoName, CONTRIBUTOR, PATH, COMMIT_MESSAGE = getInput('ACCESS_TOKEN'), getInput(
-    'REPO_NAME'), getInput('CONTRIBUTOR') + '\n', getInput('FILEPATH'), getInput('COMMIT_MESSAGE')
+names = get_contributor_names(repo)
 
-COLUMN_PER_ROW = int(getInput('COLUMN_PER_ROW'))
-IMG_WIDTH = int(getInput('IMG_WIDTH'))
-FONT_SIZE = int(getInput('FONT_SIZE'))
-
-github = Github(accessToken)
-repo = github.get_repo(repoName)
-
-htmlStart = '<html><table><tr>'
-htmlEnd = '</tr></table></html>'
-
-writeRepo(repo, formatContributors(repo, COLUMN_PER_ROW, IMG_WIDTH,
-                                   FONT_SIZE, htmlStart, htmlEnd), htmlStart, htmlEnd, PATH, COMMIT_MESSAGE,
-          CONTRIBUTOR)
+try:
+    with open(file_path, "w") as f:
+        f.write("\n".join(names))
+except IOError as e:
+    print(f"Error writing to file: {e}")
+except PermissionError as e:
+    print(f"Permission denied writing to file: {e}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
