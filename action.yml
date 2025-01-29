@@ -1,6 +1,6 @@
 name: "List Contributors Simple"
 description: "GitHub Action to write a plain-text list of contributors to a file."
-author: "Nightblade"
+author: "@nightblade"
 
 branding:
   icon: "users"

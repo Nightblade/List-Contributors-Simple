@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-contributors:
+  run:
     runs-on: ubuntu-latest
     steps:
       - uses: nightblade/list-contributors-simple@main
