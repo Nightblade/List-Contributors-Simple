@@ -14,23 +14,23 @@ def get_gh_input(input_name: str) -> str:
     return os.environ[f"INPUT_{input_name}"]
 
 
-def get_contributor_urls(repo) -> list[str]:
-    """Retrieves a list of contributor urls from a given GitHub repository.
+def get_contributor_names(repo) -> list[str]:
+    """Retrieves a list of contributor names from a given GitHub repository.
 
-    If a contributor's url is not available, a placeholder "Unknown" is used instead.
+    If a contributor's name is not available, a placeholder "Unknown" is used instead.
 
     Args:
-        repo: A PyGithub Repository object from which to retrieve contributor urls.
+        repo: A PyGithub Repository object from which to retrieve contributor names.
 
     Returns:
-        A list of strings representing the urls of contributors.
+        A list of strings representing the names of contributors.
     """
-    contributor_urls = []
+    contributor_names = []
     for contributor in repo.get_contributors():
-        url = contributor.contributors_url or "Unknown"
-        contributor_urls.append(url)
+        name = contributor.login or "Unknown"
+        contributor_names.append(name)
 
-    return contributor_urls
+    return contributor_names
 
 
 repo_name, file_path, access_token = (
@@ -43,11 +43,11 @@ github = Github(access_token)
 
 repo = github.get_repo(repo_name)
 
-urls = get_contributor_urls(repo)
+names = get_contributor_names(repo)
 
 try:
     with open(file_path, "w") as f:
-        f.write("\n".join(urls))
+        f.write("\n".join(names))
 except IOError as e:
     print(f"Error writing to file: {e}")
 except PermissionError as e:
