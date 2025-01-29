@@ -13,8 +13,7 @@ inputs:
 
   filename:
     description: "Output file name"
-    required: false
-    default: "contributors.txt"
+    required: true
 
   access_token:
     description: "Github Access Token. (Just pass GITHUB_TOKEN)"

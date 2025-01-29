@@ -6,11 +6,11 @@ Based on [https://github.com/Maanuj-Vora/List-Contributors](https://github.com/M
 
 ## Setting Up The Workflow Run
 
-| Input Tag    | Required | Default Value    | Example                             |
-| ------------ | -------- | ---------------- | ----------------------------------- |
-| REPO_NAME    | True     | N/A              | Nightblade/List-Contributors-Simple |
-| FILENAME     | False    | contributors.txt | some-file.txt                       |
-| ACCESS_TOKEN | True     | N/A              | ${{secrets.GITHUB_TOKEN}}           |
+| Input Tag    | Required | Default Value | Example                             |
+| ------------ | -------- | ------------- | ----------------------------------- |
+| repo_name    | True     | N/A           | Nightblade/List-Contributors-Simple |
+| filename     | True     | N/A           | contributors.txt                    |
+| access_token | True     | N/A           | ${{secrets.GITHUB_TOKEN}}           |
 
 ```yaml
 name: Example usage
