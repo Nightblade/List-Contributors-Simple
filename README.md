@@ -1,7 +1,7 @@
 # List Contributors Simple
 
 [![GitHub Super-Linter](https://github.com/nightblade/list-contributors-simple/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/nightblade/list-contributors-simple/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/nightblade/list-contributors-simple/actions/workflows/CI.yml/badge.svg)
 
 
 GitHub Action to write a plain-text list of contributors to a file.
