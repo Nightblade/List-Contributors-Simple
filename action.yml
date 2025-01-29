@@ -20,5 +20,4 @@ inputs:
     required: true
 
 runs:
-  using: "python"
-  image: "main.py"
+  using: ubuntu-latest
