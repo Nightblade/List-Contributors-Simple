@@ -35,7 +35,7 @@ def get_contributor_names(repo) -> list[str]:
 
 repo_name, file_path, access_token = (
     get_gh_input("REPO_NAME"),
-    get_gh_input("FILEPATH"),
+    get_gh_input("FILENAME"),
     get_gh_input("ACCESS_TOKEN"),
 )
 
