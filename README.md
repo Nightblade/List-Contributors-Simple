@@ -27,6 +27,5 @@ jobs:
           repo_name: "nightblade/list-contributors-simple"
           filename: "contributors.txt"
           access_token: ${{secrets.GITHUB_TOKEN}}
-      - run: |
-        cat contributors.txt
+      - run: cat contributors.txt
 ```
