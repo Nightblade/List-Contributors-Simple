@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from github import Github
 import os
 

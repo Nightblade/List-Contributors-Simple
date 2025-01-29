@@ -20,5 +20,5 @@ inputs:
     required: true
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: "python"
+  image: "main.py"
