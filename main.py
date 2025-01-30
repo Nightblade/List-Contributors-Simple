@@ -22,9 +22,9 @@ def get_env(var_name: str) -> str:
         The value of the input variable.
     """
     var_name = f"INPUT_{var_name}"
+    print(f"{var_name} is '{os.environ[var_name]}'")
     if var_name not in os.environ or os.environ[var_name] == "":
-        print(f"Error: {var_name} is required.")
-        raise ValueError(f"Error: {var_name} is required.")
+        raise ValueError(f"{var_name} is required.")
     return os.environ[var_name]
 
 
