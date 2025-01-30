@@ -24,7 +24,7 @@ def gh_input(input_name: str) -> str:
     return os.environ[f"INPUT_{input_name}"]
 
 
-def get_contributors_login_ids(repository: Github.Repository) -> list[str]:
+def get_contributors_login_ids(repository: github.Repository) -> list[str]:
     """Retrieves a list of contributor's login IDs from a given GitHub repository.
 
     If a contributor's login is not available, placeholder "Unknown" is used instead.
