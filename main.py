@@ -33,7 +33,6 @@ def get_env(var_name: str) -> str:
     """
     var_name = f"INPUT_{var_name}"
     var_value = os.environ.get(var_name) or ""
-    print(f"{var_name} is '{var_value}'")
     if var_value == "":
         sys.stderr.write(
             f"::error:: {var_name} is required ({__app_name__} v{__version__}).\n"
