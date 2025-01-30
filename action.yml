@@ -20,5 +20,15 @@ inputs:
     required: true
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: "composite"
+  steps:
+    - run: |
+        python3 -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      shell: bash
+        - run: python3 main.py
+          env:
+            INPUT_REPO_NAME: "${{inputs.repo_name}}"
+            INPUT_FILENAME: "${{inputs.filename}}"
+            INPUT_ACCESS_TOKEN: "${{inputs.access_token}}"
+      shell: bash
