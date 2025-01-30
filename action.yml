@@ -26,7 +26,13 @@ runs:
         python3 -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       shell: bash
+    - run: ls -la
+      shell: bash
+    - run: ls -la
+      working-directory: .
+      shell: bash
     - run: python3 main.py
+      working-directory: .
       env:
         INPUT_REPO_NAME: "${{inputs.repo_name}}"
         INPUT_FILENAME: "${{inputs.filename}}"
