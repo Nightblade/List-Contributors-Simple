@@ -1,4 +1,5 @@
-name: Test missing input
+name: Experiment
+
 on:
   workflow_dispatch:
 
@@ -8,9 +9,19 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: nightblade/list-contributors-simple@main
+      - uses: nightblade/list-contributors-simple@v1
         with:
           repo_name: "PathOfBuildingCommunity/PathOfBuilding"
-          filename: "contributors.txt"
+          filename: "contributors1.txt"
+          access_token: ${{secrets.GITHUB_TOKEN}}
 
-      - run: cat contributors.txt
+      - uses: nightblade/list-contributors-simple@v1
+        with:
+          repo_name: "PathOfBuildingCommunity/PathOfBuilding-PoE2"
+          filename: "contributors2.txt"
+          access_token: ${{secrets.GITHUB_TOKEN}}
+
+      - run: |
+          export LC_ALL=C && cat contributors1.txt contributors2.txt |
+          sort -fu | grep -v "github-actions" > contribs-dict.txt
+          wc -l contribs-dict.txt
