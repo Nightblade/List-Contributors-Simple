@@ -1,0 +1,12 @@
+name: Test missing input
+on:
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nightblade/list-contributors-simple@v1
+      - run: cat contributors.txt
