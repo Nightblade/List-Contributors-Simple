@@ -8,5 +8,5 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: nightblade/list-contributors-simple@v1
+      - uses: nightblade/list-contributors-simple@main
       - run: cat contributors.txt
