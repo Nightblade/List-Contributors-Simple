@@ -25,12 +25,13 @@ runs:
     - run: |
         python3 -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
       shell: bash
-    - run: pwd
-      shell: bash
-    - run: ls -la
+    - run: pwd; ls -la; find / -type f -name "requirements.txt" -print
+      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
       shell: bash
     - run: python3 main.py
+      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
       env:
         INPUT_REPO_NAME: "${{inputs.repo_name}}"
         INPUT_FILENAME: "${{inputs.filename}}"
