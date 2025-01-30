@@ -1,5 +1,5 @@
 name: "List Contributors Simple"
-description: "Action to write a plain-text list of contributors to a file."
+description: "Action to write a plain-text list of contributors login IDs to a file."
 author: "@nightblade"
 
 branding:

@@ -3,7 +3,7 @@
 [![GitHub Super-Linter](https://github.com/nightblade/list-contributors-simple/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
 ![CI](https://github.com/nightblade/list-contributors-simple/actions/workflows/CI.yml/badge.svg)
 
-GitHub Action to write a plain-text list of contributors to a file.
+Action to write a plain-text list of contributors' login IDs to a file.
 
 Based on [https://github.com/Maanuj-Vora/List-Contributors](https://github.com/Maanuj-Vora/List-Contributors).
 
