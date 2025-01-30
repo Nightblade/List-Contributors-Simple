@@ -29,8 +29,8 @@ jobs:
 
 ## Inputs
 
-| Input        | Default | Required | Description               |
-| ------------ | ------- | -------- | ------------------------- |
-| repo_name    | N/A     | True     | Name of the repo to scan. |
-| filename     | N/A     | True     | Name of the output file.  |
-| access_token | N/A     | True     | GitHub token.             |
+| Input        | Default | Required | Description                     |
+| ------------ | ------- | -------- | ------------------------------- |
+| repo_name    | N/A     | True     | Name of the repository to scan. |
+| filename     | N/A     | True     | Name of the output file.        |
+| access_token | N/A     | True     | GitHub token.                   |

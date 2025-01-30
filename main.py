@@ -1,5 +1,7 @@
-from github import Github
+#!/usr/bin/env python3
+
 import os
+from github import Github
 
 
 def get_gh_input(input_name: str) -> str:
@@ -45,12 +47,5 @@ repo = github.get_repo(repo_name)
 
 logins = get_contributors_logins(repo)
 
-try:
-    with open(file_path, "w") as f:
-        f.write("\n".join(logins))
-except IOError as e:
-    print(f"Error writing to file: {e}")
-except PermissionError as e:
-    print(f"Permission denied writing to file: {e}")
-except Exception as e:
-    print(f"Unexpected error: {e}")
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write("\n".join(logins))

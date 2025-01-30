@@ -8,7 +8,7 @@ branding:
 
 inputs:
   repo_name:
-    description: "Name of the repo to scan"
+    description: "Name of the repository to scan"
     required: true
 
   filename:
