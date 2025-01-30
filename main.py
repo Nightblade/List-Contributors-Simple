@@ -22,7 +22,8 @@ def get_env(var_name: str) -> str:
         The value of the input variable.
     """
     var_name = f"INPUT_{var_name}"
-    if var_name not in os.environ or os.environ[var_name] is None:
+    print(f"{var_name} is {os.environ[var_name]}")
+    if var_name not in os.environ or os.environ[var_name] == "":
         raise ValueError(f"{var_name} is required")
     return os.environ[var_name]
 
@@ -45,6 +46,8 @@ def get_contributors_login_ids(repository) -> list[str]:
 
     return contributor_logins
 
+
+print(f"List Contributors Simple v{__version__}")
 
 repo_name, file_name, access_token = (
     get_env("REPO_NAME"),
