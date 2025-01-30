@@ -3,6 +3,8 @@ name: Experiment
 on:
   workflow_dispatch:
 
+permissions: read-all
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -20,5 +22,6 @@ jobs:
           access_token: ${{secrets.GITHUB_TOKEN}}
 
       - run: |
-          export LC_ALL=C && cat contributors1.txt contributors2.txt 
-          | grep -v "github-actions" > contribs-dict.txt; wc -l contribs-dict.txt
+          export LC_ALL=C && cat contributors1.txt contributors2.txt |
+          sort -fu | grep -v "github-actions" > contribs-dict.txt
+          wc -l contribs-dict.txt
