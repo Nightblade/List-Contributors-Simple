@@ -24,7 +24,7 @@ def get_env(var_name: str) -> str:
     var_name = f"INPUT_{var_name}"
     if var_name not in os.environ or os.environ[var_name] == "":
         print(f"Error: {var_name} is required.")
-        raise ValueError("Missing required input.")
+        raise ValueError(f"Error: {var_name} is required.")
     return os.environ[var_name]
 
 
