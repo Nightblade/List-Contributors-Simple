@@ -1,5 +1,5 @@
 name: "List Contributors Simple"
-description: "GitHub Action to write a plain-text list of contributors to a file."
+description: "Action to write a plain-text list of contributors to a file."
 author: "@nightblade"
 
 branding:
@@ -8,15 +8,15 @@ branding:
 
 inputs:
   repo_name:
-    description: "Name of the repo: [user|org]/repo"
+    description: "Name of the repo to scan"
     required: true
 
   filename:
-    description: "Output file name"
+    description: "Name of the output file."
     required: true
 
   access_token:
-    description: "Github Access Token. (Just pass GITHUB_TOKEN)"
+    description: "GitHub token."
     required: true
 
 runs:
@@ -26,9 +26,9 @@ runs:
         python3 -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       shell: bash
-        - run: python3 main.py
-          env:
-            INPUT_REPO_NAME: "${{inputs.repo_name}}"
-            INPUT_FILENAME: "${{inputs.filename}}"
-            INPUT_ACCESS_TOKEN: "${{inputs.access_token}}"
+    - run: python3 main.py
+      env:
+        INPUT_REPO_NAME: "${{inputs.repo_name}}"
+        INPUT_FILENAME: "${{inputs.filename}}"
+        INPUT_ACCESS_TOKEN: "${{inputs.access_token}}"
       shell: bash

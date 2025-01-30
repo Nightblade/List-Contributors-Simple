@@ -9,13 +9,13 @@ jobs:
     steps:
       - uses: nightblade/list-contributors-simple@main
         with:
-          repo_name: | 
+          repo_name: |
             "PathOfBuildingCommunity/PathOfBuilding"
             "PathOfBuildingCommunity/PathOfBuilding-PoE2"
-          filename: | 
+          filename: |
             "contributors1.txt"
             "contributors2.txt"
           access_token: ${{secrets.GITHUB_TOKEN}}
-      - run: | 
+      - run: |
           cat contributors1.txt
           cat contributors2.txt

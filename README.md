@@ -7,13 +7,7 @@ GitHub Action to write a plain-text list of contributors to a file.
 
 Based on [https://github.com/Maanuj-Vora/List-Contributors](https://github.com/Maanuj-Vora/List-Contributors).
 
-## Setting Up The Workflow Run
-
-| Input Tag    | Required | Default Value | Example                             |
-| ------------ | -------- | ------------- | ----------------------------------- |
-| repo_name    | True     | N/A           | nightblade/list-contributors-simple |
-| filename     | True     | N/A           | contributors.txt                    |
-| access_token | True     | N/A           | ${{secrets.GITHUB_TOKEN}}           |
+## Usage
 
 ```yaml
 name: Example usage
@@ -32,3 +26,11 @@ jobs:
           access_token: ${{secrets.GITHUB_TOKEN}}
       - run: cat contributors.txt
 ```
+
+## Inputs
+
+| Input        | Default | Required | Description               |
+| ------------ | ------- | -------- | ------------------------- |
+| repo_name    | N/A     | True     | Name of the repo to scan. |
+| filename     | N/A     | True     | Name of the output file.  |
+| access_token | N/A     | True     | GitHub token.             |
