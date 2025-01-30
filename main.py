@@ -1,14 +1,13 @@
-"""Uses PyGithub library to retrieve and writea list of contributors' login IDs from a given repository.
+"""Uses PyGithub library to retrieve and writea list of contributors' login IDs from a repository.
 
-The script takes in three arguments: the name of the repository, the name of the output file, and the GitHub access
-token. It then uses PyGithub to retrieve the list of contributors's login IDs from the repository and writes them to
-a plain text file with the specified name, one ID per line.
+The script takes in three arguments: the name of the repository, the name of the output file, and
+the GitHub access token. It then uses PyGithub to retrieve the list of contributors's login IDs
+from the repository and writes them to a plain text file with the specified name, one ID per line.
 """
 
 import os
 
 from github import Github
-
 
 __version__ = "1.0.0"
 
