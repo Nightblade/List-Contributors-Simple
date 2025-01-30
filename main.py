@@ -24,8 +24,7 @@ def get_env(var_name: str) -> str:
     var_name = f"INPUT_{var_name}"
     print(f"{var_name} is '{os.environ[var_name]}'")
     if os.environ[var_name] == "":
-        # add an annotation to the GitHub Action describing the error
-        print(f"::error::{var_name} is required.")
+        print(f"::error::{var_name} is required.", file=os.stderr)
         raise ValueError(f"{var_name} is required.")
     return os.environ[var_name]
 
