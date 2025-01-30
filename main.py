@@ -1,7 +1,7 @@
 """
 Retrieves and writes a list of contributors' login IDs from a given repository.
 
-Args:
+Args (from environment variables):
     repo_name (str): The name of the repository to scan.
     filename (str): The name of the output file.
     access_token (str): The GitHub access token.
@@ -10,7 +10,7 @@ Returns:
     None
 
 Raises:
-    ValueError: If any of the required environment variables are missing or empty.
+    ValueError: If any of the required environment variables are empty.
 """
 
 import os
