@@ -26,7 +26,9 @@ def get_env(var_name: str) -> str:
     var_value = os.environ.get(var_name)
     print(f"{var_name} is '{var_value}'")
     if var_value == "":
-        sys.stderr.write(f"::error:: {var_name} is required.\n")
+        sys.stderr.write(
+            f"::error:: {var_name} is required (List Contributors Simple v{__version__}).\n"
+        )
         raise ValueError(f"{var_name} is required.")
     return var_value
 
@@ -50,7 +52,8 @@ def get_contributors_login_ids(repository) -> list[str]:
     return contributor_logins
 
 
-print(f"List Contributors Simple v{__version__}")
+# print program name
+print(sys.argv[0])
 
 repo_name, file_name, access_token = (
     get_env("REPO_NAME"),
