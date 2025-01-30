@@ -5,7 +5,7 @@ import os
 from github import Github
 
 
-def get_gh_input(input_name: str) -> str:
+def gh_input(input_name: str) -> str:
     """Returns the value of a given GitHub Actions input variable.
 
     Args:
@@ -36,11 +36,13 @@ def get_contributors_logins(repo) -> list[str]:
     return contributor_logins
 
 
-repo_name, file_path, access_token = (
-    get_gh_input("REPO_NAME"),
-    get_gh_input("FILENAME"),
-    get_gh_input("ACCESS_TOKEN"),
+repo_name, file_name, access_token = (
+    gh_input("REPO_NAME"),
+    gh_input("FILENAME"),
+    gh_input("ACCESS_TOKEN"),
 )
+
+output_path = os.environ["GITHUB_WORKSPACE"]
 
 github = Github(access_token)
 
@@ -48,5 +50,5 @@ repo = github.get_repo(repo_name)
 
 logins = get_contributors_logins(repo)
 
-with open(file_path, "w", encoding="utf-8") as f:
+with open(output_path + "/" + file_name, "w", encoding="utf-8") as f:
     f.write("\n".join(logins))
