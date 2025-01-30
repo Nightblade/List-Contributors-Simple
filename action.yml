@@ -21,14 +21,20 @@ inputs:
 
 runs:
   using: "composite"
-  shell: bash
-  working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
   steps:
     - run: |
         python3 -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      shell: bash
+      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
+
     - run: pwd; ls -la "${{github.workspace}}"
+      shell: bash
+      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
+
     - run: python3 main.py
+      shell: bash
+      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
       env:
         INPUT_REPO_NAME: "${{inputs.repo_name}}"
         INPUT_FILENAME: "${{inputs.filename}}"
