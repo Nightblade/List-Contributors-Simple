@@ -9,19 +9,23 @@ import os
 
 from github import Github
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
-def gh_input(input_name: str) -> str:
+def get_env(var_name: str) -> str:
     """Returns the value of a given GitHub Actions input variable.
 
     Args:
-        input_name: The name of the input variable.
+        var_name: The name of the input variable sans "INPUT_" prefix.
 
     Returns:
         The value of the input variable.
     """
-    return os.environ[f"INPUT_{input_name}"]
+    var_name = f"INPUT_{var_name}"
+    print(f"{var_name} is {os.environ[var_name]}")
+    if var_name not in os.environ or os.environ[var_name] == "":
+        raise ValueError(f"{var_name} is required")
+    return os.environ[var_name]
 
 
 def get_contributors_login_ids(repository) -> list[str]:
@@ -43,10 +47,12 @@ def get_contributors_login_ids(repository) -> list[str]:
     return contributor_logins
 
 
+print(f"List Contributors Simple v{__version__}")
+
 repo_name, file_name, access_token = (
-    gh_input("REPO_NAME"),
-    gh_input("FILENAME"),
-    gh_input("ACCESS_TOKEN"),
+    get_env("REPO_NAME"),
+    get_env("FILENAME"),
+    get_env("ACCESS_TOKEN"),
 )
 
 output_path = os.environ["GITHUB_WORKSPACE"]
