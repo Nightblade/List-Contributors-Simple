@@ -10,3 +10,5 @@ jobs:
     steps:
       - uses: nightblade/list-contributors-simple@main
       - run: cat contributors.txt
+        with:
+          repo_name: "PathOfBuildingCommunity/PathOfBuilding"
