@@ -9,7 +9,7 @@ import os
 
 from github import Github
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
 def gh_input(input_name: str) -> str:
@@ -21,6 +21,8 @@ def gh_input(input_name: str) -> str:
     Returns:
         The value of the input variable.
     """
+    if f"INPUT_{input_name}" not in os.environ:
+        raise ValueError(f"INPUT_{input_name} is required")
     return os.environ[f"INPUT_{input_name}"]
 
 
