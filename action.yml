@@ -19,21 +19,20 @@ inputs:
     description: "GitHub token."
     required: true
 
+defaults:
+  runs:
+    shell: bash
+    working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
+
 runs:
   using: "composite"
   steps:
     - run: |
         python3 -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
-      shell: bash
     - run: pwd; ls -la
-      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
-      shell: bash
     - run: python3 main.py
-      working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
       env:
         INPUT_REPO_NAME: "${{inputs.repo_name}}"
         INPUT_FILENAME: "${{inputs.filename}}"
         INPUT_ACCESS_TOKEN: "${{inputs.access_token}}"
-      shell: bash
