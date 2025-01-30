@@ -11,4 +11,6 @@ jobs:
       - uses: nightblade/list-contributors-simple@main
         with:
           repo_name: "PathOfBuildingCommunity/PathOfBuilding"
+          filename: "contributors.txt"
+
       - run: cat contributors.txt

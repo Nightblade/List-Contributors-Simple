@@ -1,8 +1,16 @@
-"""Uses PyGithub library to retrieve and writea list of contributors' login IDs from a repository.
+"""
+Retrieves and writes a list of contributors' login IDs from a given repository.
 
-The script takes in three arguments: the name of the repository, the name of the output file, and
-the GitHub access token. It then uses PyGithub to retrieve the list of contributors's login IDs
-from the repository and writes them to a plain text file with the specified name, one ID per line.
+Args:
+    repo_name (str): The name of the repository to scan.
+    filename (str): The name of the output file.
+    access_token (str): The GitHub access token.
+
+Returns:
+    None
+
+Raises:
+    ValueError: If any of the required environment variables are missing or empty.
 """
 
 import os
@@ -10,6 +18,7 @@ import sys
 
 from github import Github
 
+__app_name__ = "List Contributors Simple"
 __version__ = "1.0.1"
 
 
@@ -23,11 +32,11 @@ def get_env(var_name: str) -> str:
         The value of the input variable.
     """
     var_name = f"INPUT_{var_name}"
-    var_value = os.environ.get(var_name)
+    var_value = os.environ.get(var_name) or ""
     print(f"{var_name} is '{var_value}'")
     if var_value == "":
         sys.stderr.write(
-            f"::error:: {var_name} is required (List Contributors Simple v{__version__}).\n"
+            f"::error:: {var_name} is required ({__app_name__} v{__version__}).\n"
         )
         raise ValueError(f"{var_name} is required.")
     return var_value
@@ -51,9 +60,6 @@ def get_contributors_login_ids(repository) -> list[str]:
 
     return contributor_logins
 
-
-# print program name
-print(sys.argv[0])
 
 repo_name, file_name, access_token = (
     get_env("REPO_NAME"),
