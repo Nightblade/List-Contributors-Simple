@@ -27,7 +27,7 @@ runs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
       shell: bash
-    - run: pwd; ls -la; find / -type f -name "requirements.txt" -print
+    - run: pwd; ls -la
       working-directory: /home/runner/work/_actions/nightblade/list-contributors-simple/main
       shell: bash
     - run: python3 main.py
