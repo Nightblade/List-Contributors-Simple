@@ -15,6 +15,8 @@ name: Example usage
 on:
   workflow_dispatch:
 
+permissions: read-all
+
 jobs:
   run:
     runs-on: ubuntu-latest
