@@ -6,6 +6,7 @@ from the repository and writes them to a plain text file with the specified name
 """
 
 import os
+import sys
 
 from github import Github
 
@@ -22,11 +23,12 @@ def get_env(var_name: str) -> str:
         The value of the input variable.
     """
     var_name = f"INPUT_{var_name}"
-    print(f"{var_name} is '{os.environ[var_name]}'")
-    if os.environ[var_name] == "":
-        print(f"::error::{var_name} is required.", file=os.stderr)
+    var_value = os.environ.get(var_name)
+    print(f"{var_name} is '{var_value}'")
+    if var_value == "":
+        sys.stderr.write(f"::error:: {var_name} is required.\n")
         raise ValueError(f"{var_name} is required.")
-    return os.environ[var_name]
+    return var_value
 
 
 def get_contributors_login_ids(repository) -> list[str]:
