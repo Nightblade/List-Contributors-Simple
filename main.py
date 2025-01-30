@@ -4,6 +4,14 @@ import os
 
 from github import Github
 
+""" Script that uses GitHub's PyGithub library to retrieve a list of contributors' login IDs from a given repository.
+
+The script takes in three arguments: the name of the repository, the name of the output file, and the GitHub access token.
+It then uses PyGithub to retrieve the list of contributors's login IDs from the repository and writes them to a plain text file with the specified name, one ID per line.
+"""
+
+__version__ = "1.0.0"
+
 
 def gh_input(input_name: str) -> str:
     """Returns the value of a given GitHub Actions input variable.
@@ -17,21 +25,21 @@ def gh_input(input_name: str) -> str:
     return os.environ[f"INPUT_{input_name}"]
 
 
-def get_contributors_logins(repo) -> list[str]:
-    """Retrieves a list of contributor's logins from a given GitHub repository.
+def get_contributors_login_ids(repository: Github.Repository) -> list[str]:
+    """Retrieves a list of contributor's login IDs from a given GitHub repository.
 
-    If a contributor's login is not available, a placeholder "Unknown" is used instead.
+    If a contributor's login is not available, placeholder "Unknown" is used instead.
 
     Args:
-        repo: A PyGithub Repository object from which to retrieve contributor's logins.
+        repository: A PyGithub repository object from which to retrieve contributor's login IDs.
 
     Returns:
-        A list of strings representing the requested logins of the contributors.
+        A list of strings representing the requested login IDs of the contributors.
     """
     contributor_logins = []
-    for contributor in repo.get_contributors():
-        logins = contributor.login or "Unknown"
-        contributor_logins.append(logins)
+    for contributor in repository.get_contributors():
+        login_id = contributor.login or "Unknown"
+        contributor_logins.append(login_id)
 
     return contributor_logins
 
@@ -48,7 +56,7 @@ github = Github(access_token)
 
 repo = github.get_repo(repo_name)
 
-logins = get_contributors_logins(repo)
+login_ids = get_contributors_login_ids(repo)
 
 with open(output_path + "/" + file_name, "w", encoding="utf-8") as f:
-    f.write("\n".join(logins))
+    f.write("\n".join(login_ids))

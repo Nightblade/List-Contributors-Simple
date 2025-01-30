@@ -19,7 +19,7 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: nightblade/list-contributors-simple@main
+      - uses: nightblade/list-contributors-simple@v1
         with:
           repo_name: "nightblade/list-contributors-simple"
           filename: "contributors.txt"
