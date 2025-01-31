@@ -3,6 +3,10 @@ name: CodeQL analysis
 on:
   workflow_dispatch:
 
+permissions:
+  actions: read
+  security-events: write
+
 jobs:
   codeql-analysis-call:
     name: CodeQL analysis
