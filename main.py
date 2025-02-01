@@ -38,6 +38,8 @@ repo_name: str = os.environ.get("INPUT_REPO_NAME")
 file_name: str = os.environ.get("INPUT_FILENAME")
 access_token: str = os.environ.get("INPUT_ACCESS_TOKEN")
 
+print(f"::repo_name::{repo_name}")
+
 # raise an error if any of the required environment variables are ""
 for v, e in zip([repo_name, file_name, access_token], env_vars):
     if v is None or v == "":
@@ -56,6 +58,9 @@ for i, r in enumerate(repo_name):
 
 # for each repo in repo_name, get the list of contributors' login IDs and append them to the file
 for r in repo_name:
+    if r == "":
+        continue
+    print(f"::repo::{r}")
     repo: Repository = github.get_repo(r)
 
     with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
