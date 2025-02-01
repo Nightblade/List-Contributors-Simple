@@ -25,7 +25,7 @@ __version__ = "1.0.2"
 env_vars = ["INPUT_REPO_NAME", "INPUT_FILE_NAME", "INPUT_ACCESS_TOKEN"]
 
 # Get input from environment variables
-repo_name, file_name, access_token = (os.environ.get(var) for var in env_vars)
+(repo_name, file_name, access_token) = (os.environ.get(var) for var in env_vars)
 
 # raise an error if any of the required environment variables are ""
 for v, e in zip([repo_name, access_token, file_name], env_vars):
