@@ -37,11 +37,10 @@ for var in repo_name, access_token, file_name:
 output_path = os.environ.get["GITHUB_WORKSPACE"]
 github = Github(access_token)
 
-# if "repo_name" contains a comma, turn it into a list.  Need to ensure there are no spaces around the comma!!
+# if "repo_name" contains a comma, turn it into a list.  Need to ensure there is no space after the comma.
 if "," in repo_name:
     repo_name = repo_name.replace(", ", ",")
     repo_name = repo_name.split(",")
-
 
 # for each repo in repo_name, get the list of contributors' login IDs and append them to the file
 for repo_name in repo_name:
