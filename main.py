@@ -56,17 +56,10 @@ repo_name: List[str] = repo_name.split(",")
 for i, r in enumerate(repo_name):
     repo_name[i] = r.strip()
 
-# for each repo in repo_name, get the list of contributors' login IDs and append them to the file
+# for each repo in repo_name,
 for r in repo_name:
-    if r == "":
-        continue
-    print(f"::repo::{r}")
     repo: Repository = github.get_repo(r)
-    if repo is None:
-        print(f"Repository '{r}' not found")
-        continue
+    # for each contributor in repo, get login IDs and append them to the file
     with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
-        f.write(
-            "\n".join([contributor.login for contributor in repo.get_contributors()])
-            + "\n"
-        )
+        for c in repo.get_contributors():
+            f.write(f"{c.login}\n")
