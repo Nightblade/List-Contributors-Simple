@@ -42,8 +42,8 @@ if "," in repo_name:
     repo_name = repo_name.split(",")
 
 # for each repo in repo_name, get the list of contributors' login IDs and append them to the file
-for repo_name in repo_name:
-    repo = github.get_repo(repo_name)
+for r in repo_name:
+    repo = github.get_repo(r)
 
     with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
         f.write(
