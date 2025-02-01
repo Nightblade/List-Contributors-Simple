@@ -5,9 +5,7 @@ class Github:
     def __init__(self, access_token):
         self.access_token = access_token
         self.repos = {
-            "Nightblade/List-Contributors-Simple": Repository(
-                "Nightblade/List-Contributors-Simple"
-            ),
+            "test_repo": Repository("test_repo"),
             "another_repo": Repository("another_repo"),
         }
 
