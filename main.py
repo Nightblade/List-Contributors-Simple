@@ -16,7 +16,12 @@ Raises:
 
 import os
 from typing import List
-from github import Github, Repository
+
+try:
+    from github import Github, Repository
+except ImportError:
+    from .github import Github, Repository
+
 
 __app_name__ = "List Contributors Simple"
 __version__ = "1.0.2"
@@ -35,17 +40,19 @@ access_token: str = os.environ.get("INPUT_ACCESS_TOKEN")
 
 # raise an error if any of the required environment variables are ""
 for v, e in zip([repo_name, file_name, access_token], env_vars):
-    if v == "":
+    if v is None or v == "":
         print(f"::error title={__app_name__}::{__version__} - {e} is required.")
-        raise ValueError()
+        raise ValueError(f"{e} is required.")
 
 output_path: str = os.environ.get("GITHUB_WORKSPACE")
 github: Github = Github(access_token)
 
-# if "repo_name" contains a comma, turn it into a list.  Ensure there is no space after the comma.
-if "," in repo_name:
-    repo_name = repo_name.replace(", ", ",")
-    repo_name: List[str] = repo_name.split(",")
+# split repo_name by ","
+repo_name: List[str] = repo_name.split(",")
+
+# remove leading and trailing spaces from each element of repo_name
+for i, r in enumerate(repo_name):
+    repo_name[i] = r.strip()
 
 # for each repo in repo_name, get the list of contributors' login IDs and append them to the file
 for r in repo_name:
@@ -54,4 +61,5 @@ for r in repo_name:
     with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
         f.write(
             "\n".join([contributor.login for contributor in repo.get_contributors()])
+            + "\n"
         )
