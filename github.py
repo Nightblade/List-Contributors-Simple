@@ -5,7 +5,9 @@ class Github:
     def __init__(self, access_token):
         self.access_token = access_token
         self.repos = {
-            "test_repo": Repository("test_repo"),
+            "Nightblade/List-Contributors-Simple": Repository(
+                "Nightblade/List-Contributors-Simple"
+            ),
             "another_repo": Repository("another_repo"),
         }
 
@@ -18,7 +20,7 @@ class Repository:
         self.name = name
 
     def get_contributors(self):
-        if self.name == "test_repo":
+        if self.name == "Nightblade/List-Contributors-Simple":
             contributors = [
                 Contributor("contrib_name1", "contrib_login1"),
                 Contributor("contrib_name1", "contrib_login2"),

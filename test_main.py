@@ -2,7 +2,7 @@ import os
 import unittest
 import subprocess
 
-os.environ["INPUT_REPO_NAME"] = "test_repo, another_repo"
+os.environ["INPUT_REPO_NAME"] = "Nightblade/List-Contributors-Simple, another_repo"
 os.environ["INPUT_FILENAME"] = "test_file"
 os.environ["INPUT_ACCESS_TOKEN"] = "test_token"
 os.environ["GITHUB_WORKSPACE"] = "."
