@@ -44,7 +44,7 @@ for v, e in zip([repo_name, file_name, access_token], env_vars):
         raise ValueError(f"{e} is required.")
 
 output_path: str = os.environ.get("GITHUB_WORKSPACE")
-github: Github = Github(access_token)
+g: Github = Github(access_token)
 
 # split repo_name by ","
 repo_name: List[str] = repo_name.split(",")
@@ -54,9 +54,10 @@ for i, r in enumerate(repo_name):
     repo_name[i] = r.strip()
 
 # for each repo in repo_name,
-for r in repo_name:
-    repo: Repository = github.get_repo(r)
+for repo in repo_name:
+    r: Repository = g.get_repo(repo)
+    contributors = r.get_contributors()
     # for each contributor in repo, get login IDs and append them to the file
     with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
-        for c in repo.get_contributors():
+        for c in contributors:
             f.write(f"{c.login}\n")
