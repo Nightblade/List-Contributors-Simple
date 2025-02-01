@@ -15,35 +15,41 @@ Raises:
 """
 
 import os
-
-from github import Github
+from typing import List
+from github import Github, Repository
 
 __app_name__ = "List Contributors Simple"
 __version__ = "1.0.2"
 
 
-env_vars = ["INPUT_REPO_NAME", "INPUT_FILE_NAME", "INPUT_ACCESS_TOKEN"]
+env_vars = [
+    "INPUT_REPO_NAME",
+    "INPUT_FILE_NAME",
+    "INPUT_ACCESS_TOKEN",
+]
 
 # Get input from environment variables
-(repo_name, file_name, access_token) = (os.environ.get(var) for var in env_vars)
+repo_name: str = os.environ.get("INPUT_REPO_NAME")
+file_name: str = os.environ.get("INPUT_FILE_NAME")
+access_token: str = os.environ.get("INPUT_ACCESS_TOKEN")
 
 # raise an error if any of the required environment variables are ""
-for v, e in zip([repo_name, access_token, file_name], env_vars):
+for v, e in zip([repo_name, file_name, access_token], env_vars):
     if v == "":
         print(f"::error title={__app_name__}::{__version__} - {e} is required.")
         raise ValueError()
 
-output_path = os.environ.get("GITHUB_WORKSPACE")
-github = Github(access_token)
+output_path: str = os.environ.get("GITHUB_WORKSPACE")
+github: Github = Github(access_token)
 
-# if "repo_name" contains a comma, turn it into a list.  Need to ensure there is no space after the comma.
+# if "repo_name" contains a comma, turn it into a list.  Ensure there is no space after the comma.
 if "," in repo_name:
     repo_name = repo_name.replace(", ", ",")
-    repo_name = repo_name.split(",")
+    repo_name: List[str] = repo_name.split(",")
 
 # for each repo in repo_name, get the list of contributors' login IDs and append them to the file
 for r in repo_name:
-    repo = github.get_repo(r)
+    repo: Repository = github.get_repo(r)
 
     with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
         f.write(
