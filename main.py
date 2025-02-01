@@ -17,7 +17,7 @@ Raises:
 import os
 from typing import List
 
-from github import Github, Repository, Contributor
+from github import Github
 
 
 __app_name__ = "List Contributors Simple"
@@ -55,8 +55,8 @@ for i, r in enumerate(repo_names):
 
 # for each repo in repo_name, get each contributor in repo, get their login ID, append to the output file
 for repo in repo_names:
-    r: Repository = g.get_repo(repo)
-    contributors: List[Contributor] = r.get_contributors()
+    r = g.get_repo(repo)
+    contributors = r.get_contributors()
     with open(os.path.join(workspace_path, output_file), "a", encoding="utf-8") as f:
         for c in contributors:
             f.write(f"{c.login}\n")
