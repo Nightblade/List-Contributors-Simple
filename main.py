@@ -19,7 +19,6 @@ from typing import List
 
 from github import Github
 
-
 __app_name__ = "List Contributors Simple"
 __version__ = "2.0.0"
 

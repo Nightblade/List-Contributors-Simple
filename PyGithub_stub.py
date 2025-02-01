@@ -2,6 +2,7 @@
 
 
 class Github:
+
     def __init__(self, access_token):
         self.access_token = access_token
         self.repos = {
@@ -16,6 +17,7 @@ class Github:
 
 
 class Repository:
+
     def __init__(self, name):
         self.name = name
 
@@ -36,6 +38,7 @@ class Repository:
 
 
 class Contributor:
+
     def __init__(self, name, login):
         self.name = name
         self.login = login

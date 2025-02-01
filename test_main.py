@@ -1,6 +1,6 @@
 import os
-import unittest
 import subprocess
+import unittest
 
 os.environ["INPUT_REPO_NAMES"] = "Nightblade/List-Contributors-Simple, another_repo"
 os.environ["INPUT_OUTPUT_FILE"] = "test_file"
@@ -9,6 +9,7 @@ os.environ["GITHUB_WORKSPACE"] = "."
 
 
 class TestMain(unittest.TestCase):
+
     def test_main(self):
         result = subprocess.run(["python", "main.py"], capture_output=True, text=True)
         print(result.stdout)
