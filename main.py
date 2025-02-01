@@ -17,10 +17,10 @@ Raises:
 import os
 from typing import List
 
-try:
-    from github import Github, Repository
-except ImportError:
-    from .github import Github, Repository
+# try:
+from github import Github, Repository
+# except ImportError:
+#     from .github import Github, Repository
 
 
 __app_name__ = "List Contributors Simple"
