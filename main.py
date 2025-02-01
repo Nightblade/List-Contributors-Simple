@@ -33,7 +33,7 @@ for v, e in zip([repo_name, access_token, file_name], env_vars):
         print(f"::error title={__app_name__}::{__version__} - {e} is required.")
         raise ValueError()
 
-output_path = os.environ.get["GITHUB_WORKSPACE"]
+output_path = os.environ.get("GITHUB_WORKSPACE")
 github = Github(access_token)
 
 # if "repo_name" contains a comma, turn it into a list.  Need to ensure there is no space after the comma.
