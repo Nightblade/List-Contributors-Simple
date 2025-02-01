@@ -62,7 +62,9 @@ for r in repo_name:
         continue
     print(f"::repo::{r}")
     repo: Repository = github.get_repo(r)
-
+    if repo is None:
+        print(f"Repository '{r}' not found")
+        continue
     with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
         f.write(
             "\n".join([contributor.login for contributor in repo.get_contributors()])
