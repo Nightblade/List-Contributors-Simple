@@ -28,10 +28,10 @@ env_vars = ["INPUT_REPO_NAME", "INPUT_FILE_NAME", "INPUT_ACCESS_TOKEN"]
 repo_name, file_name, access_token = (os.environ.get(var) for var in env_vars)
 
 # raise an error if any of the required environment variables are ""
-for var in repo_name, access_token, file_name:
-    if not var:
+for v, e in zip([repo_name, access_token, file_name], env_vars):
+    if not v:
         raise ValueError(
-            f"::error title={__app_name__}::{__version__} - {env_vars[env_vars.index(var)]} is required."
+            f"::error title={__app_name__}::{__version__} - {e} is required."
         )
 
 output_path = os.environ.get["GITHUB_WORKSPACE"]
