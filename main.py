@@ -29,10 +29,9 @@ env_vars = ["INPUT_REPO_NAME", "INPUT_FILE_NAME", "INPUT_ACCESS_TOKEN"]
 
 # raise an error if any of the required environment variables are ""
 for v, e in zip([repo_name, access_token, file_name], env_vars):
-    if not v:
-        raise ValueError(
-            f"::error title={__app_name__}::{__version__} - {e} is required."
-        )
+    if v == "":
+        print(f"::error title={__app_name__}::{__version__} - {e} is required.")
+        raise ValueError()
 
 output_path = os.environ.get["GITHUB_WORKSPACE"]
 github = Github(access_token)
