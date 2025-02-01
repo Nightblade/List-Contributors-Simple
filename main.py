@@ -3,8 +3,8 @@ Retrieves and writes a plain-text list of GitHub login IDs from the contributors
 specified repositories.
 
 Args (taken from environment variables as passed by the "with" block of the action):
-    INPUT_REPO_NAME (str): Name of the repository to scan.
-    INPUT_FILENAME (str): Name of the output file.
+    INPUT_REPO_NAMES (str): One or more comma-separated repository names.
+    INPUT_OUTPUT_FILE (str): Name of the output file.
     INPUT_ACCESS_TOKEN (str): GitHub access token.
 
 Returns:
@@ -17,47 +17,46 @@ Raises:
 import os
 from typing import List
 
-from github import Github, Repository
+from github import Github, Repository, Contributor
 
 
 __app_name__ = "List Contributors Simple"
-__version__ = "1.0.2"
+__version__ = "2.0.0"
 
 
 env_vars = [
-    "INPUT_REPO_NAME",
-    "INPUT_FILENAME",
+    "INPUT_REPO_NAMES",
+    "INPUT_OUTPUT_FILE",
     "INPUT_ACCESS_TOKEN",
 ]
 
 # Get input from environment variables
-repo_name: str = os.environ.get("INPUT_REPO_NAME")
-file_name: str = os.environ.get("INPUT_FILENAME")
+repo_names: str = os.environ.get("INPUT_REPO_NAMES")
+output_file: str = os.environ.get("INPUT_OUTPUT_FILE")
 access_token: str = os.environ.get("INPUT_ACCESS_TOKEN")
 
-print(f"::repo_name::{repo_name}")
+print(f"::repo_names::{repo_names}")
 
 # raise an error if any of the required environment variables are ""
-for v, e in zip([repo_name, file_name, access_token], env_vars):
+for v, e in zip([repo_names, output_file, access_token], env_vars):
     if v is None or v == "":
         print(f"::error title={__app_name__}::{__version__} - {e} is required.")
         raise ValueError(f"{e} is required.")
 
-output_path: str = os.environ.get("GITHUB_WORKSPACE")
+workspace_path: str = os.environ.get("GITHUB_WORKSPACE")
 g: Github = Github(access_token)
 
 # split repo_name by ","
-repo_name: List[str] = repo_name.split(",")
+repo_names: List[str] = repo_names.split(",")
 
 # remove leading and trailing spaces from each element of repo_name
-for i, r in enumerate(repo_name):
-    repo_name[i] = r.strip()
+for i, r in enumerate(repo_names):
+    repo_names[i] = r.strip()
 
-# for each repo in repo_name,
-for repo in repo_name:
+# for each repo in repo_name, get each contributor in repo, get their login ID, append to the output file
+for repo in repo_names:
     r: Repository = g.get_repo(repo)
-    contributors = r.get_contributors()
-    # for each contributor in repo, get login IDs and append them to the file
-    with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
+    contributors: List[Contributor] = r.get_contributors()
+    with open(os.path.join(workspace_path, output_file), "a", encoding="utf-8") as f:
         for c in contributors:
             f.write(f"{c.login}\n")

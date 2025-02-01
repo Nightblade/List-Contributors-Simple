@@ -21,18 +21,18 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: nightblade/list-contributors-simple@v1
+      - uses: nightblade/list-contributors-simple@v2
         with:
-          repo_name: "nightblade/list-contributors-simple"
-          filename: "contributors.txt"
+          repo_names: "nightblade/list-contributors-simple"
+          output_file: "contributors.txt"
           access_token: ${{secrets.GITHUB_TOKEN}}
       - run: cat contributors.txt
 ```
 
 ## Inputs
 
-| Input        | Default | Required | Description                     |
-| ------------ | ------- | -------- | ------------------------------- |
-| repo_name    | N/A     | True     | Name of the repository to scan. |
-| filename     | N/A     | True     | Name of the output file.        |
-| access_token | N/A     | True     | GitHub token.                   |
+| Input        | Default | Required | Description                                   |
+| ------------ | ------- | -------- | --------------------------------------------- |
+| repo_names   | N/A     | True     | One or more comma-separated repository names. |
+| output_file  | N/A     | True     | Name of the output file.                      |
+| access_token | N/A     | True     | GitHub token.                                 |

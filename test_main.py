@@ -2,8 +2,8 @@ import os
 import unittest
 import subprocess
 
-os.environ["INPUT_REPO_NAME"] = "Nightblade/List-Contributors-Simple, another_repo"
-os.environ["INPUT_FILENAME"] = "test_file"
+os.environ["INPUT_REPO_NAMES"] = "Nightblade/List-Contributors-Simple, another_repo"
+os.environ["INPUT_OUTPUT_FILE"] = "test_file"
 os.environ["INPUT_ACCESS_TOKEN"] = "test_token"
 os.environ["GITHUB_WORKSPACE"] = "."
 
@@ -15,6 +15,7 @@ class TestMain(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         with open("test_file", "r") as file:
             output = file.read()
+        os.unlink("test_file")
         self.assertIn("contrib_login1", output)
         self.assertIn("contrib_login2", output)
         self.assertIn("another_contrib_login1", output)
