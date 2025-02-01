@@ -4,7 +4,7 @@ specified repositories.
 
 Args (taken from environment variables as passed by the "with" block of the action):
     INPUT_REPO_NAME (str): Name of the repository to scan.
-    INPUT_FILE_NAME (str): Name of the output file.
+    INPUT_FILENAME (str): Name of the output file.
     INPUT_ACCESS_TOKEN (str): GitHub access token.
 
 Returns:
@@ -29,13 +29,13 @@ __version__ = "1.0.2"
 
 env_vars = [
     "INPUT_REPO_NAME",
-    "INPUT_FILE_NAME",
+    "INPUT_FILENAME",
     "INPUT_ACCESS_TOKEN",
 ]
 
 # Get input from environment variables
 repo_name: str = os.environ.get("INPUT_REPO_NAME")
-file_name: str = os.environ.get("INPUT_FILE_NAME")
+file_name: str = os.environ.get("INPUT_FILENAME")
 access_token: str = os.environ.get("INPUT_ACCESS_TOKEN")
 
 # raise an error if any of the required environment variables are ""

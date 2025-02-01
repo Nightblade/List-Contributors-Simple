@@ -3,7 +3,7 @@ import unittest
 import subprocess
 
 os.environ["INPUT_REPO_NAME"] = "test_repo, another_repo"
-os.environ["INPUT_FILE_NAME"] = "test_file"
+os.environ["INPUT_FILENAME"] = "test_file"
 os.environ["INPUT_ACCESS_TOKEN"] = "test_token"
 os.environ["GITHUB_WORKSPACE"] = "."
 
