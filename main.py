@@ -1,10 +1,11 @@
 """
-Retrieves and writes a list of contributors' login IDs from a given repository.
+Retrieves and writes a plain-text list of GitHub login IDs from the contributors of the
+specified repositories.
 
-Args (from environment variables):
-    repo_name (str): The name of the repository to scan.
-    filename (str): The name of the output file.
-    access_token (str): The GitHub access token.
+Args (taken from environment variables as passed by the "with" block of the action):
+    INPUT_REPO_NAME (str): Name of the repository to scan.
+    INPUT_FILE_NAME (str): Name of the output file.
+    INPUT_ACCESS_TOKEN (str): GitHub access token.
 
 Returns:
     None
@@ -14,65 +15,39 @@ Raises:
 """
 
 import os
-import sys
 
 from github import Github
 
 __app_name__ = "List Contributors Simple"
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 
-def get_env(var_name: str) -> str:
-    """Returns the value of a given GitHub Actions input variable.
+env_vars = ["INPUT_REPO_NAME", "INPUT_FILE_NAME", "INPUT_ACCESS_TOKEN"]
 
-    Args:
-        var_name: The name of the input variable sans "INPUT_" prefix.
+# Get input from environment variables
+repo_name, file_name, access_token = (os.environ.get(var) for var in env_vars)
 
-    Returns:
-        The value of the input variable.
-    """
-    var_name = f"INPUT_{var_name}"
-    var_value = os.environ.get(var_name) or ""
-    if var_value == "":
-        sys.stderr.write(
-            f"::error:: {var_name} is required ({__app_name__} v{__version__}).\n"
+# raise an error if any of the required environment variables are ""
+for var in repo_name, access_token, file_name:
+    if not var:
+        raise ValueError(
+            f"::error title={__app_name__}::{__version__} - {env_vars[env_vars.index(var)]} is required."
         )
-        raise ValueError(f"{var_name} is required.")
-    return var_value
 
-
-def get_contributors_login_ids(repository) -> list[str]:
-    """Retrieves a list of contributor's login IDs from a given GitHub repository.
-
-    If a contributor's login is not available, placeholder "Unknown" is used instead.
-
-    Args:
-        repository: A PyGithub repository object from which to retrieve contributor's login IDs.
-
-    Returns:
-        A list of strings representing the requested login IDs of the contributors.
-    """
-    contributor_logins = []
-    for contributor in repository.get_contributors():
-        login_id = contributor.login or "Unknown"
-        contributor_logins.append(login_id)
-
-    return contributor_logins
-
-
-repo_name, file_name, access_token = (
-    get_env("REPO_NAME"),
-    get_env("FILENAME"),
-    get_env("ACCESS_TOKEN"),
-)
-
-output_path = os.environ["GITHUB_WORKSPACE"]
-
+output_path = os.environ.get["GITHUB_WORKSPACE"]
 github = Github(access_token)
 
-repo = github.get_repo(repo_name)
+# if "repo_name" contains a comma, turn it into a list.  Need to ensure there are no spaces around the comma!!
+if "," in repo_name:
+    repo_name = repo_name.replace(", ", ",")
+    repo_name = repo_name.split(",")
 
-login_ids = get_contributors_login_ids(repo)
 
-with open(output_path + "/" + file_name, "w", encoding="utf-8") as f:
-    f.write("\n".join(login_ids))
+# for each repo in repo_name, get the list of contributors' login IDs and append them to the file
+for repo_name in repo_name:
+    repo = github.get_repo(repo_name)
+
+    with open(os.path.join(output_path, file_name), "a", encoding="utf-8") as f:
+        f.write(
+            "\n".join([contributor.login for contributor in repo.get_contributors()])
+        )
