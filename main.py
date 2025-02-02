@@ -46,7 +46,10 @@ workspace_path: str = os.environ.get("GITHUB_WORKSPACE")
 g: Github = Github(access_token)
 
 # listify repo_names
-repo_list: List[str] = [repo_names]
+if "\n" in repo_names:
+    repo_list: List[str] = repo_names.split("\n")
+else:
+    repo_list: List[str] = [repo_names]
 
 # for each non-empty repo in repo_names, get each contributor in repo, get their login ID,  
 # append to the output file
