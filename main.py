@@ -2,8 +2,8 @@
 Retrieves and writes a plain-text list of GitHub login IDs from the contributors of the
 specified repositories.
 
-Args (taken from environment variables as passed by the "with" block of the action):
-    INPUT_REPO_NAMES (str): One or more comma-separated repository names.
+Args (taken from environment variables passed from the "with" block of the workflow):
+    INPUT_REPO_NAMES (List[str]): A list of one or more repo names (use "|" syntax in workflow).
     INPUT_OUTPUT_FILE (str): Name of the output file.
     INPUT_ACCESS_TOKEN (str): GitHub access token.
 
@@ -30,7 +30,7 @@ env_vars = [
 ]
 
 # Get input from environment variables
-repo_names: str = os.environ.get("INPUT_REPO_NAMES")
+repo_names: List[str] = os.environ.get("INPUT_REPO_NAMES")
 output_file: str = os.environ.get("INPUT_OUTPUT_FILE")
 access_token: str = os.environ.get("INPUT_ACCESS_TOKEN")
 
@@ -45,21 +45,11 @@ for v, e in zip([repo_names, output_file, access_token], env_vars):
 workspace_path: str = os.environ.get("GITHUB_WORKSPACE")
 g: Github = Github(access_token)
 
-# split repo_names by "\n" or ","
-if "\n" in repo_names:
-    cooked_repo_names: List[str] = repo_names.split("\n")
-elif "," in repo_names:
-    cooked_repo_names: List[str] = repo_names.split(",")
-else:
-    cooked_repo_names: List[str] = [repo_names]
-
-# remove leading and trailing spaces from each element of cooked_repo_names
-for i, r in enumerate(cooked_repo_names):
-    cooked_repo_names[i] = r.strip()
-
-# for each repo in cooked_repo_names, get each contributor in repo, get their login ID, append to the 
-# output file
-for repo in cooked_repo_names:
+# for each non-empty repo in repo_names, get each contributor in repo, get their login ID,  
+# append to the output file
+for repo in repo_names:
+    if repo == "":
+        continue
     print(f"::fetching repo::'{repo}'")
     r = g.get_repo(repo)
     contributors = r.get_contributors()

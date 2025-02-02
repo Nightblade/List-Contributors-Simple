@@ -12,7 +12,7 @@ jobs:
       - uses: nightblade/list-contributors-simple@dev
         with:
           repo_names: |
-            PathOfBuildingCommunity/PathOfBuilding
+            pathofbuildingcommunity/pathofbuilding
             PathOfBuildingCommunity/PathOfBuilding-PoE2
           output_file: "contributors.txt"
           access_token: ${{secrets.GITHUB_TOKEN}}

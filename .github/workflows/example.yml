@@ -11,7 +11,9 @@ jobs:
     steps:
       - uses: nightblade/list-contributors-simple@v1
         with:
-          repo_names: "nightblade/list-contributors-simple"
+          repo_names: |
+            nightblade/pob-dict
+            Nightblade/List-Contributors-Simple
           output_file: "contributors.txt"
           access_token: ${{secrets.GITHUB_TOKEN}}
       - run: cat contributors.txt

@@ -18,7 +18,9 @@ jobs:
     steps:
       - uses: nightblade/list-contributors-simple@v1
         with:
-          repo_names: "nightblade/list-contributors-simple"
+          repo_names: |
+            nightblade/pob-dict
+            Nightblade/List-Contributors-Simple
           output_file: "contributors.txt"
           access_token: ${{secrets.GITHUB_TOKEN}}
       - run: cat contributors.txt
@@ -26,8 +28,10 @@ jobs:
 
 ## Inputs
 
-| Input        | Default | Required | Description                                   |
-| ------------ | ------- | -------- | --------------------------------------------- |
-| repo_names   | N/A     | True     | One or more comma-separated repository names. |
-| output_file  | N/A     | True     | Name of the output file.                      |
-| access_token | N/A     | True     | GitHub token.                                 |
+| Input        | Default | Required | Description                         |
+| ------------ | ------- | -------- | ----------------------------------- |
+| repo_names   | N/A     | True     | A list of one or more repo names[1] |
+| output_file  | N/A     | True     | Name of the output file.            |
+| access_token | N/A     | True     | GitHub token.                       |
+
+[1]: Use "\|" syntax for more than one repo name, as shown in example above.
