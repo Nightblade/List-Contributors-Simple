@@ -11,7 +11,9 @@ jobs:
     steps:
       - uses: nightblade/list-contributors-simple@dev
         with:
-          repo_names: "PathOfBuildingCommunity/PathOfBuilding, PathOfBuildingCommunity/PathOfBuilding-PoE2"
+          repo_names: |
+            PathOfBuildingCommunity/PathOfBuilding
+            PathOfBuildingCommunity/PathOfBuilding-PoE2
           output_file: "contributors.txt"
           access_token: ${{secrets.GITHUB_TOKEN}}
 
