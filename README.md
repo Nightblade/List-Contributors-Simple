@@ -34,4 +34,4 @@ jobs:
 | output_file  | N/A     | True     | Name of the output file.            |
 | access_token | N/A     | True     | GitHub token.                       |
 
-[1]: Use "\|" syntax for more than one repo name, as shown in example above.
+[1]: Use pipe ("\|") syntax if more than one repo name, as shown in example above.

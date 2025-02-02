@@ -3,7 +3,7 @@ Retrieves and writes a plain-text list of GitHub login IDs from the contributors
 specified repositories.
 
 Args (taken from environment variables passed from the "with" block of the workflow):
-    INPUT_REPO_NAMES (List[str]): A list of one or more repo names (use "|" syntax in workflow).
+    INPUT_REPO_NAMES (str): A list of one or more repo names (use "|" syntax in workflow).
     INPUT_OUTPUT_FILE (str): Name of the output file.
     INPUT_ACCESS_TOKEN (str): GitHub access token.
 
@@ -45,9 +45,12 @@ for v, e in zip([repo_names, output_file, access_token], env_vars):
 workspace_path: str = os.environ.get("GITHUB_WORKSPACE")
 g: Github = Github(access_token)
 
+# listify repo_names
+repo_list: List[str] = [repo_names]
+
 # for each non-empty repo in repo_names, get each contributor in repo, get their login ID,  
 # append to the output file
-for repo in repo_names:
+for repo in repo_list:
     if repo == "":
         continue
     print(f"::fetching repo::'{repo}'")
