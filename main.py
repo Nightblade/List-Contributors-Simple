@@ -51,7 +51,7 @@ if "\n" in repo_names:
 else:
     repo_list: List[str] = [repo_names]
 
-# for each non-empty repo in repo_names, get each contributor in repo, get their login ID,  
+# for each non-empty repo in repo_names, get each contributor in repo, get their login ID,
 # append to the output file
 for repo in repo_list:
     if repo == "":
