@@ -45,16 +45,19 @@ for v, e in zip([repo_names, output_file, access_token], env_vars):
 workspace_path: str = os.environ.get("GITHUB_WORKSPACE")
 g: Github = Github(access_token)
 
-# split repo_name by ","
-repo_names: List[str] = repo_names.split(",")
+# split repo_names by "\n" or ","
+if "\n" in repo_names:
+    cooked_repo_names: List[str] = repo_names.split("\n")
+elif "," in repo_names:
+    cooked_repo_names: List[str] = repo_names.split(",")
 
-# remove leading and trailing spaces from each element of repo_name
-for i, r in enumerate(repo_names):
-    repo_names[i] = r.strip()
+# remove leading and trailing spaces from each element of cooked_repo_names
+for i, r in enumerate(cooked_repo_names):
+    cooked_repo_names[i] = r.strip()
 
-# for each repo in repo_name, get each contributor in repo, get their login ID, append to the 
+# for each repo in cooked_repo_names, get each contributor in repo, get their login ID, append to the 
 # output file
-for repo in repo_names:
+for repo in cooked_repo_names:
     r = g.get_repo(repo)
     contributors = r.get_contributors()
     with open(os.path.join(workspace_path, output_file), "a", encoding="utf-8") as f:
