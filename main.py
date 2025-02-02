@@ -50,6 +50,8 @@ if "\n" in repo_names:
     cooked_repo_names: List[str] = repo_names.split("\n")
 elif "," in repo_names:
     cooked_repo_names: List[str] = repo_names.split(",")
+else:
+    cooked_repo_names: List[str] = [repo_names]
 
 # remove leading and trailing spaces from each element of cooked_repo_names
 for i, r in enumerate(cooked_repo_names):
@@ -58,6 +60,7 @@ for i, r in enumerate(cooked_repo_names):
 # for each repo in cooked_repo_names, get each contributor in repo, get their login ID, append to the 
 # output file
 for repo in cooked_repo_names:
+    print(f"::fetching repo::'{repo}'")
     r = g.get_repo(repo)
     contributors = r.get_contributors()
     with open(os.path.join(workspace_path, output_file), "a", encoding="utf-8") as f:
