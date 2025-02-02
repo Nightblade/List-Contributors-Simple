@@ -30,8 +30,8 @@ jobs:
 
 | Input        | Default | Required | Description                         |
 | ------------ | ------- | -------- | ----------------------------------- |
-| repo_names   | N/A     | True     | A list of one or more repo names[1] |
+| repo_names   | N/A     | True     | A list of one or more repo names[^1] |
 | output_file  | N/A     | True     | Name of the output file.            |
 | access_token | N/A     | True     | GitHub token.                       |
 
-[1]: Use pipe ("\|") syntax if more than one repo name, as shown in example above.
+[^1]: Use pipe ("\|") syntax if more than one repo name, as shown in example above.
