@@ -20,7 +20,7 @@ from typing import List
 from github import Github
 
 __app_name__ = "List Contributors Simple"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 
 env_vars = [
