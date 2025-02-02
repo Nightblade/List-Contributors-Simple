@@ -8,7 +8,7 @@ branding:
 
 inputs:
   repo_names:
-    description: "A list of one or more repo names (use "\|" syntax)."
+    description: "A list of one or more repo names (use workflowpipe syntax)."
     required: true
 
   output_file:
