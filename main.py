@@ -52,7 +52,8 @@ repo_names: List[str] = repo_names.split(",")
 for i, r in enumerate(repo_names):
     repo_names[i] = r.strip()
 
-# for each repo in repo_name, get each contributor in repo, get their login ID, append to the output file
+# for each repo in repo_name, get each contributor in repo, get their login ID, 
+# andappend to the output file
 for repo in repo_names:
     r = g.get_repo(repo)
     contributors = r.get_contributors()
