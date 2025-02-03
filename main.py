@@ -20,7 +20,7 @@ from typing import List
 from github import Github
 
 __app_name__ = "List Contributors Simple"
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 
 env_vars = [
@@ -46,10 +46,7 @@ workspace_path: str = os.environ.get("GITHUB_WORKSPACE")
 g: Github = Github(access_token)
 
 # listify repo_names
-if "\n" in repo_names:
-    repo_list: List[str] = repo_names.split("\n")
-else:
-    repo_list: List[str] = [repo_names]
+repo_list: List[str] = repo_names.splitlines()
 
 # for each non-empty repo in repo_names, get each contributor in repo, get their login ID,
 # append to the output file
